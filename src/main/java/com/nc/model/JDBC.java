@@ -22,6 +22,8 @@ public class JDBC {
                 con = ds.getConnection();
             }
             Statement statement = con.createStatement();
+            statement.executeUpdate("declare c int; begin select count(*) into c from ALL_SEQUENCES where sequence_name = 'USERGROUP_ID_SEQ'; if c = 0 then execute immediate 'CREATE SEQUENCE USERGROUP_ID_SEQ'; end if; end;");
+            statement.executeUpdate("declare c int; begin select count(*) into c from ALL_SEQUENCES where sequence_name = 'USERS_ID_SEQ'; if c = 0 then execute immediate 'CREATE SEQUENCE USERS_ID_SEQ'; end if; end;");
             statement.executeUpdate("declare c int; begin select count(*) into c from ALL_TABLES where table_name='USERGROUP'; if c = 0 then execute immediate 'CREATE TABLE usergroup ( id NUMBER(10) NOT NULL, name VARCHAR2(100) NOT NULL, CONSTRAINT usergroup_pk PRIMARY KEY (id))'; end if; end;");
             statement.executeUpdate("declare c int; begin select count(*) into c from ALL_TABLES where table_name='USERS'; if c = 0 then execute immediate 'CREATE TABLE users ( id NUMBER(10) NOT NULL, first_name VARCHAR2(100), last_name VARCHAR2(100), usergroup_id NUMBER(10), CONSTRAINT user_pk PRIMARY KEY (id), CONSTRAINT fk_usergroup FOREIGN KEY (usergroup_id) REFERENCES usergroup(id))'; end if; end;");
         }
