@@ -68,8 +68,13 @@ public class JDBC {
 
     public void removeGroup(int id) {
         try (final PreparedStatement statement = this.con.prepareStatement(
-                "delete from usergroup where id = (?)")) {
+                "begin " +
+                        "delete from users where usergroup_id = (?); " +
+                        "delete from usergroup where id = (?); " +
+                        "commit; " +
+                        "end;")) {
             statement.setString(1, String.valueOf(id));
+            statement.setString(2, String.valueOf(id));
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
