@@ -34,8 +34,8 @@
                                     ${user.firstName}
                                     ${user.lastName}
                             </span>
-                            <a href="edituser?id=${group.id}"><i class="material-icons">edit</i></a>
-                            <a href="deleteuser?id=${group.id}"><i class="material-icons ">delete</i></a>
+                            <a href="edituser?id=${user.id}"><i class="material-icons">edit</i></a>
+                            <a href="deleteuser?id=${user.id}"><i class="material-icons ">delete</i></a>
                         </li>
                     </c:forEach>
                     </ul>
